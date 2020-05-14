@@ -1,5 +1,8 @@
 extends Control
 
+
+signal signal_register_button_pressed_in_Register
+
 onready var http: HTTPRequest = $HTTPRequest
 onready var username: LineEdit = $Container/VBoxContainer2/Username/LineEdit
 onready var password: LineEdit = $Container/VBoxContainer2/Password/LineEdit
@@ -18,8 +21,8 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
         notification.text = response_body.result.error.message.capitalize()
     else:
         notification.text = "Registration sucessful!"
-        yield(get_tree().create_timer(2.0), "timeout") ## TODO: Put this in singal
-        get_tree().change_scene("res://src/Login/Login.tscn")
+        yield(get_tree().create_timer(1.0), "timeout") ## TODO: Remove This Line!
+        emit_signal("signal_register_button_pressed_in_Register")
 
 
 func _on_RegisterButton_pressed() -> void:
@@ -29,3 +32,10 @@ func _on_RegisterButton_pressed() -> void:
         return
     
     Firebase.register(username.text, password.text, http)
+
+
+func connect_signals_with(gm_ref, func_name: String = "") -> void:
+
+    if gm_ref.has_method(func_name) and !gm_ref.is_connected("signal_register_button_pressed_in_Register", gm_ref, func_name):
+        
+        connect("signal_register_button_pressed_in_Register", gm_ref, func_name)

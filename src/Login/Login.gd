@@ -1,5 +1,8 @@
 extends Control
 
+
+signal signal_login_button_pressed_in_Login
+
 onready var http: HTTPRequest = $HTTPRequest
 onready var username: LineEdit = $Container/VBoxContainer2/Username/LineEdit
 onready var password: LineEdit = $Container/VBoxContainer2/Password/LineEdit
@@ -24,5 +27,12 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
         notification.text = response_body.result.error.message.capitalize()
     else:
         notification.text = "Sign in sucessful!"
-    yield(get_tree().create_timer(2.0), "timeout") ## TODO: Put this in singal
-    get_tree().change_scene("res://src/UserProfile/UserProfile.tscn")
+        yield(get_tree().create_timer(2.0), "timeout") ## TODO: Remove This Line!
+        emit_signal("signal_login_button_pressed_in_Login")
+
+
+func connect_signals_with(gm_ref, func_name: String = "") -> void:
+
+    if gm_ref.has_method(func_name) and !gm_ref.is_connected("signal_login_button_pressed_in_Login", gm_ref, func_name):
+    
+        connect("signal_login_button_pressed_in_Login", gm_ref, func_name)

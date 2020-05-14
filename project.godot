@@ -8,20 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "InstanceManager",
+"language": "GDScript",
+"path": "res://src/InstanceManager/InstanceManager.gd"
+} ]
 _global_script_class_icons={
-
+"InstanceManager": ""
 }
 
 [application]
 
 config/name="PL Com Uno Online"
-run/main_scene="res://src/Main/Main.tscn"
+run/main_scene="res://src/InstanceManager/InstanceManager.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Firebase="*res://src/Globals/Firebase.gd"
+SignalManager="*res://src/Globals/SignalManager.gd"
 
 [display]
 
