@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Control",
+"class": "GameManager",
+"language": "GDScript",
+"path": "res://src/GameManager/GameManager.gd"
+}, {
 "base": "Node",
 "class": "InstanceManager",
 "language": "GDScript",
 "path": "res://src/InstanceManager/InstanceManager.gd"
 } ]
 _global_script_class_icons={
+"GameManager": "",
 "InstanceManager": ""
 }
 
@@ -28,6 +34,7 @@ config/icon="res://icon.png"
 
 Firebase="*res://src/Globals/Firebase.gd"
 SignalManager="*res://src/Globals/SignalManager.gd"
+FirestoreListener="*res://src/Globals/FirestoreListener/FirestoreListener.tscn"
 
 [display]
 

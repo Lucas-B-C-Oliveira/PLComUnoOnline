@@ -27,7 +27,9 @@ func start() -> void: ## TODO: Check this name!
 
 
 func _on_HTTPRequest_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
+
 	var result_body := JSON.parse(body.get_string_from_ascii()).result as Dictionary
+	
 	match response_code:
 		404:
 			notification.text = "Please, enter your information"

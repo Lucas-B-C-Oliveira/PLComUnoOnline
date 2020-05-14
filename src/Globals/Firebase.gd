@@ -81,3 +81,6 @@ func update_document(path: String, fields: Dictionary, http: HTTPRequest) -> voi
 func delete_document(path: String, http: HTTPRequest) -> void:
     var url := FIRESTORE_URL + path
     http.request(url, _get_request_headers(), false, HTTPClient.METHOD_DELETE)
+
+
+
