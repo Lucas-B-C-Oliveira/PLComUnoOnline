@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/HostAndJoin/HostAndJoin.gd" type="Script" id=1]
+[ext_resource path="res://src/Tile/Title.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/fonts/montserrat_eb_64.tres" type="DynamicFont" id=3]
+
+[node name="HostAndJoin" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0784314, 0.603922, 0.705882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_top = 25.0
+margin_right = -25.0
+margin_bottom = -25.0
+custom_constants/separation = 50
+
+[node name="Title" parent="Container" instance=ExtResource( 2 )]
+margin_right = 1230.0
+text = "Host and Join"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container"]
+margin_top = 207.0
+margin_right = 1230.0
+margin_bottom = 492.0
+custom_constants/separation = 15
+
+[node name="HostButton" type="Button" parent="Container/VBoxContainer2"]
+margin_left = 515.0
+margin_right = 715.0
+margin_bottom = 85.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "HOST"
+
+[node name="JoinButton" type="Button" parent="Container/VBoxContainer2"]
+margin_left = 527.0
+margin_top = 100.0
+margin_right = 703.0
+margin_bottom = 185.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "JOIN"
+
+[node name="SignOut" type="Button" parent="Container/VBoxContainer2"]
+margin_left = 445.0
+margin_top = 200.0
+margin_right = 785.0
+margin_bottom = 285.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "SIGN OUT"
+
+[node name="Notification" type="Label" parent="Container"]
+margin_top = 542.0
+margin_right = 1230.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+align = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[connection signal="pressed" from="Container/VBoxContainer2/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer2/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer2/SignOut" to="." method="_on_SignOut_pressed"]

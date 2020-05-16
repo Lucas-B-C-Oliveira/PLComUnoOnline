@@ -28,6 +28,9 @@ margin_top = 25.0
 margin_right = -25.0
 margin_bottom = -25.0
 custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Title" parent="Container" instance=ExtResource( 2 )]
 margin_right = 1230.0
