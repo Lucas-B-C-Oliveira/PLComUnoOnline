@@ -44,6 +44,9 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
 
 func _on_ConfirmButton_pressed() -> void:
 
+	FirestoreListener.set_listener("MyFirstCollection","MyFirstDocument", self, "test_my_listener")
+
+
 	if nickname.text.empty() or character_class.text.empty():
 		notification.text = "Please, enter your nickname and class"
 		return
@@ -57,11 +60,13 @@ func _on_ConfirmButton_pressed() -> void:
 	match new_profile:
 		true:
 			Firebase.save_document("users?documentId=%s" % Firebase.user_info.id, profile, http)
+			# Firebase.save_document("MyFirstCollection?documentId=%s" % "MyFirstDocument", profile, http) ## TODO: Criar no Database
 		false:
 			Firebase.update_document("users/%s" % Firebase.user_info.id, profile, http)
 	information_sent = true
 
 	emit_signal("signal_confirm_button_pressed_in_UserProfile") ## TODO: Verify this!
+	
 
 
 func set_profile(value: Dictionary) -> void:
@@ -78,3 +83,8 @@ func connect_signals_with(gm_ref, func_name: String = "") -> void:
 	if gm_ref.has_method(func_name) and !gm_ref.is_connected("signal_confirm_button_pressed_in_UserProfile", gm_ref, func_name):
 		
 		connect("signal_confirm_button_pressed_in_UserProfile", gm_ref, func_name)
+
+
+func test_my_listener(data) -> void:
+	# print("DATA: ", data)
+	pass
