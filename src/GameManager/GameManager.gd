@@ -7,6 +7,7 @@ onready var register: Control = $Main/Register
 onready var login: Control = $Main/Login
 onready var user_profile: Control = $Main/UserProfile
 onready var host_and_join: Control = $Main/HostAndJoin
+onready var host_game: Control = $Main/HostGame
 
 
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 	login.connect_signals_with(self, "on_login_button_pressed_in_Login")
 	user_profile.connect_signals_with(self, "on_confirm_button_pressed_in_UserProfile")
 	host_and_join.connect_signals_with(self, "on_host_button_pressed_in_HostAndJoin", "on_join_button_pressed_in_HostAndJoin", "on_sign_out_button_pressed_in_HostAndJoin")
+	host_game.connect_signals_with(self, "on_play_button_pressed_in_HostGame", "on_cancel_button_pressed_in_HostGame")
 
 
 ##### REGISTER AND lOGIN SCENE -> 
@@ -28,18 +30,21 @@ func on_login_button_pressed_in_RegisterAndLogin() -> void:
 	## TODO: Make this change scene with animation
 ## ______________________________
 
+
 ##### REGISTER SCENE -> 
 func on_register_button_pressed_in_Register() -> void:
 	change_visibility_of_nodes("Login")
 	## TODO: Make this change scene with animation
 ## ____________________
 
+
 ##### lOGIN SCENE -> 
 func on_login_button_pressed_in_Login() -> void:
 	change_visibility_of_nodes("HostAndJoin")
-	self.user_profile.start()
+	# self.user_profile.start()
 	## TODO: Make this change scene with animation
 ## _________________
+
 
 ##### PROFILE SCENE -> 
 func on_confirm_button_pressed_in_UserProfile() -> void:
@@ -47,9 +52,10 @@ func on_confirm_button_pressed_in_UserProfile() -> void:
 	## TODO: Make this change scene with animation
 ## ___________________
 
+
 ##### HOST AND JOIN SCENE -> 
 func on_host_button_pressed_in_HostAndJoin() -> void:
-	change_visibility_of_nodes("")
+	change_visibility_of_nodes("HostGame")
 	## TODO: Make this change scene with animation
 
 func on_join_button_pressed_in_HostAndJoin() -> void:
@@ -61,6 +67,18 @@ func on_sign_out_button_pressed_in_HostAndJoin() -> void:
 	## TODO: Make this change scene with animation
 ## _________________________
 
+
+##### HOST AND JOIN SCENE -> 
+func on_play_button_pressed_in_HostGame() -> void:
+	change_visibility_of_nodes("")
+	## TODO: Make this change scene with animation
+
+func on_cancel_button_pressed_in_HostGame() -> void:
+	change_visibility_of_nodes("HostAndJoin")
+	## TODO: Make this change scene with animation
+## _________________________
+
+
 func change_visibility_of_nodes(name_node: String) -> void:
 
 	self.register_and_login.visible = false
@@ -68,12 +86,14 @@ func change_visibility_of_nodes(name_node: String) -> void:
 	self.login.visible = false
 	self.user_profile.visible = false
 	self.host_and_join.visible = false
+	self.host_game.visible = false
 
 	if name_node == "RegisterAndLogin": self.register_and_login.visible = true
 	elif name_node == "Register": self.register.visible = true
 	elif name_node == "Login": self.login.visible = true
 	elif name_node == "UserProfile": self.user_profile.visible = true
 	elif name_node == "HostAndJoin": self.host_and_join.visible = true
+	elif name_node == "HostGame": self.host_game.visible = true
 
 	
 

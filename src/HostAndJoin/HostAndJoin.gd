@@ -1,12 +1,10 @@
 extends Control
 
+
 signal signal_host_button_pressed_in_HostAndJoin
 signal signal_join_button_pressed_in_HostAndJoin
 signal signal_SignOut_button_pressed_in_HostAndJoin
 
-
-func _ready() -> void:
-	pass
 
 
 func _on_HostButton_pressed() -> void:
@@ -20,7 +18,6 @@ func _on_JoinButton_pressed() -> void:
 func _on_SignOut_pressed() -> void:
 	emit_signal("signal_SignOut_button_pressed_in_HostAndJoin")
 	Firebase.user_info = {}
-
 
 
 func connect_signals_with(gm_ref, func_name: String = "", func_name2: String = "", func_name3: String = "") -> void:

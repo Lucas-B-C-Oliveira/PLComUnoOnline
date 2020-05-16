@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/GameManager/GameManager.gd" type="Script" id=1]
 [ext_resource path="res://src/Login/Login.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/RegisterAndLogin/RegisterAndLogin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/HostAndJoin/HostAndJoin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Register/Register.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/HostGame/HostGame.tscn" type="PackedScene" id=7]
 
 [node name="GameManager" type="Control"]
 anchor_right = 1.0
@@ -43,6 +44,9 @@ secret = false
 visible = false
 
 [node name="HostAndJoin" parent="Main" instance=ExtResource( 5 )]
+visible = false
+
+[node name="HostGame" parent="Main" instance=ExtResource( 7 )]
 visible = false
 
 [editable path="Main/Login"]

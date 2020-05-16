@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Control",
+"class": "GameManager",
+"language": "GDScript",
+"path": "res://src/GameManager/GameManager.gd"
+}, {
 "base": "Node",
 "class": "InstanceManager",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://src/ListenerTimer/ListenerTimer.gd"
 } ]
 _global_script_class_icons={
+"GameManager": "",
 "InstanceManager": "",
 "ListenerTimer": ""
 }
