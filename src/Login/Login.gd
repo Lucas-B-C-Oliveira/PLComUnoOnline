@@ -27,7 +27,7 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
         notification.text = response_body.result.error.message.capitalize()
     else:
         notification.text = "Sign in sucessful!"
-        yield(get_tree().create_timer(2.0), "timeout") ## TODO: Remove This Line!
+        # yield(get_tree().create_timer(2.0), "timeout") ## TODO: Remove This Line!
         emit_signal("signal_login_button_pressed_in_Login")
 
 

@@ -62,7 +62,8 @@ func on_host_button_pressed_in_HostAndJoin() -> void:
 	## TODO: Make this change scene with animation
 
 func on_join_button_pressed_in_HostAndJoin() -> void:
-	change_visibility_of_nodes("")
+	change_visibility_of_nodes("JoinGame")
+	join_game.play_join_game()
 	## TODO: Make this change scene with animation
 
 func on_sign_out_button_pressed_in_HostAndJoin() -> void:

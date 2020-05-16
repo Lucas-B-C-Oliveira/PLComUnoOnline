@@ -72,6 +72,7 @@ margin_right = 599.0
 margin_bottom = 89.0
 size_flags_horizontal = 11
 custom_fonts/font = ExtResource( 3 )
+text = "lcs"
 placeholder_text = "Host Name"
 caret_blink = true
 
@@ -149,3 +150,4 @@ autowrap = true
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="Container/VBoxContainer3/Username/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="Container/VBoxContainer2/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

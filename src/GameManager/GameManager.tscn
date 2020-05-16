@@ -35,7 +35,7 @@ visible = false
 visible = false
 
 [node name="LineEdit" parent="Main/Login/Container/VBoxContainer2/Username" index="1"]
-text = "lcs@godot.com"
+text = "lucascoliveira819@gmail.com"
 
 [node name="LineEdit" parent="Main/Login/Container/VBoxContainer2/Password" index="1"]
 text = "lucas123"

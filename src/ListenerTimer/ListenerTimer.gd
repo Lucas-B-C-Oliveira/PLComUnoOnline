@@ -39,12 +39,14 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
 	var result_body := JSON.parse(body.get_string_from_ascii()).result as Dictionary
 	
 	if response_code != 200:
-		print("result_body.result.error.message.capitalize(): ", result_body.result.error.message.capitalize())
+		# print("result_body.result.error.message.capitalize(): ", result_body.result.error.message.capitalize())
+		data = null
 	else: 
 
 		if data == result_body.fields: return ## TODO: Verify this, but never enter here
 		
 		data = result_body.fields
-		emit_signal("return_of_request", data)
+
+	emit_signal("return_of_request", data)
 	
 
