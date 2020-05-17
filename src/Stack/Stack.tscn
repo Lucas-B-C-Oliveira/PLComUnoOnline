@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Stack/Stack.gd" type="Script" id=1]
+
+[node name="Stack" type="TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 34.5001
+margin_top = -260.159
+margin_right = 145.5
+margin_bottom = -91.1586
+mouse_filter = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Red" type="ColorRect" parent="."]
+visible = false
+margin_left = 116.486
+margin_top = 0.728302
+margin_right = 236.486
+margin_bottom = 42.9783
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yellow" type="ColorRect" parent="."]
+visible = false
+margin_left = 116.109
+margin_top = 43.7332
+margin_right = 236.109
+margin_bottom = 85.9832
+color = Color( 1, 0.831373, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Green" type="ColorRect" parent="."]
+visible = false
+margin_left = 116.109
+margin_top = 85.983
+margin_right = 236.109
+margin_bottom = 128.233
+color = Color( 0.0196078, 0.321569, 0.0196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blue" type="ColorRect" parent="."]
+visible = false
+margin_left = 116.109
+margin_top = 128.233
+margin_right = 236.109
+margin_bottom = 170.483
+color = Color( 0.0117647, 0.321569, 0.552941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="Red" to="." method="_on_Red_gui_input"]
+[connection signal="gui_input" from="Yellow" to="." method="_on_Yellow_gui_input"]
+[connection signal="gui_input" from="Green" to="." method="_on_Green_gui_input"]
+[connection signal="gui_input" from="Blue" to="." method="_on_Blue_gui_input"]

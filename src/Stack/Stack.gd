@@ -1,7 +1,7 @@
 extends TextureRect
 
 
-var card_data: CardData ## Card do topo!
+var card_data
 
 var card_color
 
@@ -13,12 +13,14 @@ func set_top(card_data) -> void:
 	texture = load("res://assets/cards/" + card_data.to_text() + ".png")
 
 
-func can_drop_data(position: Vector2, data):
+func can_drop_data(position, data):
 
 	if data.get_name() == "deck": return
 
-	if not get_parent().is_my_turn(): return false
-	data = data.card_data
+	if not get_parent().is_my_turn(): return
+
+	data = data.card_data ## TODO: data é a carta, mas com o data.card_data vira apenas o objeto carta
+
 	if card_data.type == "plus2" and card_data.used != -1:
 		if data.type == "plus2":
 			data.used = card_data.used + 2
@@ -62,10 +64,9 @@ func _on_Blue_gui_input(event: InputEvent) -> void:
 
 func color_selected(color):
 	card_color.card_data.color = color
-	# card_data = card_color.card_data
-	# texture = load("res://assets/cards/" + card_data.to_text() + ".png") ## TODO: Remove this!
+	card_data = card_color.card_data
+	texture = load("res://assets/cards/" + card_data.to_string() + ".png")
 
-	set_top(card_color.card_data)
 	$Red.hide()
 	$Yellow.hide()
 	$Green.hide()

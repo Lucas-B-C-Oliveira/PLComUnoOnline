@@ -78,12 +78,15 @@ func on_snapshot_data(data) -> void:
 					room_info.state =  {"stringValue": "open"}
 					
 					GameState.my_number_in_room = i
-					print("_____GameState.my_number_in_room: ", GameState.my_number_in_room)
+					# print("_____GameState.my_number_in_room: ", GameState.my_number_in_room)
 					state = WAIT
 					Firebase.update_document("rooms/%s" % GameState.room_name, room_info, http)
 					break
 
 	elif state == WAIT:
+
+		# print("State: ", state)
+		# print("room_data.state.stringValue: ", room_data.state.stringValue)
 
 		for i in range(4):
 
@@ -96,6 +99,8 @@ func on_snapshot_data(data) -> void:
 		if room_data.state.stringValue == "start":
 			
 			GameState.room_data = room_data
+			# print("Era pra ter trocado de cena!")
+			FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 			get_tree().change_scene("res://src/MainGame/MainGame.tscn")
 			
 		elif room_data.state.stringValue == "cancel":
@@ -141,7 +146,6 @@ func _on_Join_pressed() -> void:
 		host_name.placeholder_text = "Inválido"
 	
 
-
 func _on_Cancel_pressed() -> void:
 
 	if state == WAIT:
@@ -150,17 +154,16 @@ func _on_Cancel_pressed() -> void:
 		var keys = room_data.players.mapValue.fields.keys()
 	
 		var dic_final: Dictionary = {}
-		print("ANTES DO INVERT")
-		print("keys: ", keys)
-		print("values: ", values)
+		# print("ANTES DO INVERT")
+		# print("keys: ", keys)
+		# print("values: ", values)
 	
 		values.invert()
 		keys.invert()
 		
-		print("DPS DO INVERT")
-		print("keys: ", keys)
-		print("values: ", values)
-		
+		# print("DPS DO INVERT")
+		# print("keys: ", keys)
+		# print("values: ", values)
 		
 		var new_data = []
 		

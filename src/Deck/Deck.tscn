@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Deck/Deck.gd" type="Script" id=1]
+[ext_resource path="res://assets/cards/back.png" type="Texture" id=2]
+
+[node name="Deck" type="TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -135.5
+margin_top = -260.159
+margin_right = -24.5
+margin_bottom = -91.1586
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

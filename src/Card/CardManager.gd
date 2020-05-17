@@ -13,6 +13,9 @@ func buy_cards(hand, n = 1) -> void:
 
 	for _i in range(n):
 		hand.append(get_random_card())
+	
+	print("Func -> buy_cards -> CardManager")
+	print("Comprei ", n, " cartas!")
 
 
 func get_random_card(first: bool = false):
@@ -99,7 +102,7 @@ func to_card_data(s):
 	return c
 
 
-func suffle() -> void:
+func shuffle() -> void:
 	while stack.size() != 0:
 		
 		var i = int(rand_range(0, stack.size()))

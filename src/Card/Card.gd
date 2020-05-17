@@ -16,7 +16,7 @@ func get_drag_data(position: Vector2):
 	card.set_data(card_data)
 	card.get_node("Texture").set_position(Vector2(-111/2, -169/2))
 	set_drag_preview(card)
-	return self
+	return self ## TODO: Antes era self!!
 
 
 func can_drop_data(position, data):

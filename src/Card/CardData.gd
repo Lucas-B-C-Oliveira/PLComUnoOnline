@@ -1,5 +1,4 @@
 extends Node
-class_name CardData
 
 
 var type
@@ -14,9 +13,9 @@ func _init(t, c, u = 0) -> void:
 	used = u
 
 
-func to_string() -> String:
+func to_string():
 	return type + "_" + str(color) + "_" + str(used)
 
 
-func to_text() -> String:
+func to_text():
 	return type + "_" + str(color)
