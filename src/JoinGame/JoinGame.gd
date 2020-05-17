@@ -102,6 +102,10 @@ func on_snapshot_data(data) -> void:
 			
 			FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 			emit_signal("signal_cancel_button_pressed_in_JoinGame")
+			## TODO: Pode usar esse código abaixo!
+			# var info = load("res://src/InfoScreen/InfoScreen.tscn").instance()
+			# info.init("Atenção!", "Host Encerrou a Sessão", 3, "res://src/HostAndJoin/HostAndJoin.tscn")
+			# add_child(info)
 
 
 func _on_HTTPRequest_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:

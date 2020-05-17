@@ -28,6 +28,8 @@ func _ready() -> void:
 
 	if GameState.host:
 
+		$Exit.show()
+
 		room_info.state.stringValue = room_data.state.stringValue
 		room_info.players = room_data.players
 
@@ -73,7 +75,14 @@ func on_snapshot_data(data) -> void:
 		GameState.room_data = room_data
 		get_tree().change_scene("res://src/WinScreen/WinScreen.tscn")
 		return
-
+	
+	if room_data.game.mapValue.fields.state.stringValue == "cancel":
+		FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
+		
+		var info = load("res://src/InfoScreen/InfoScreen.tscn").instance()
+		info.init("Atenção!", "Host Encerrou a Sessão", 3, "res://src/HostAndJoin/HostAndJoin.tscn")
+		add_child(info)
+		return
 
 	if is_my_turn():
 
@@ -238,3 +247,12 @@ func show_ncards():
 				get_node("Player" + str(calc_num_player(i)) + "/Uno").show()
 			else:
 				get_node("Player" + str(calc_num_player(i)) + "/Uno").hide()
+
+
+func _on_Exit_pressed() -> void:
+	room_data.game.mapValue.fields.state.stringValue = "cancel"
+	room_data.state.stringValue = "close"
+	FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
+	Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
+	get_tree().change_scene("res://src/HostAndJoin/HostAndJoin.tscn")
+
