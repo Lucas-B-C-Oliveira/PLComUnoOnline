@@ -44,7 +44,8 @@ func _ready() -> void:
 					"state": {"stringValue": "init"},
 					"deck": {"mapValue": {"fields": dic_deck}},
 					"stack": {"mapValue": {"fields": dic_stack}},
-					"top_card": {"stringValue": ""}
+					"top_card": {"stringValue": ""},
+					"winner": {"stringValue": ""}
 				}
 			}
 		}
@@ -66,6 +67,12 @@ func on_snapshot_data(data) -> void:
 		show_ncards()
 
 		## Se é minha vez e se não é minha vez!!!
+	
+	if room_data.game.mapValue.fields.state.stringValue == "over":
+		FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
+		GameState.room_data = room_data
+		get_tree().change_scene("res://src/WinScreen/WinScreen.tscn")
+		return
 
 
 	if is_my_turn():
@@ -187,6 +194,11 @@ func calc_num_player(p) -> int:
 
 func go_to_next() -> void:
 	calc_next()
+
+	if hand.cards_data.size() == 0: ## VITORY CONDITION!!!
+		room_data.game.mapValue.fields.state.stringValue = "over"
+		room_data.game.mapValue.fields.winner.stringValue = GameState.user_name
+		room_data.state.stringValue = "close"
 	
 	room_data.game.mapValue.fields.ncards[str(my_number_in_room)].integerValue = hand.cards_data.size()
 
