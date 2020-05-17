@@ -69,11 +69,16 @@ func on_snapshot_data(data) -> void:
 	if is_my_turn():
 
 		if room_data.game.mapValue.fields.state.stringValue == "init":
+			card_manager.update_deck(room_data.game.mapValue.fields.deck.mapValue.fields)
 			if hand.cards_data.size() != 0:
 				## TODO: Já comprei as 7 cartas!
+				print("card_manager.deck.size(): ", card_manager.deck.size())
 				pass
 			else:
 				card_manager.buy_cards(hand.cards_data, 7)
+				hand.reload()
+				var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.gen_deck())
+				room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck
 				calc_next()
 				Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
 

@@ -17,5 +17,5 @@ func to_string() -> String:
 	return type + "_" + str(color) + "_" + str(used)
 
 
-func to_tex() -> String:
+func to_text() -> String:
 	return type + "_" + str(color)

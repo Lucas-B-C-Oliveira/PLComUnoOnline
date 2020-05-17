@@ -74,11 +74,11 @@ func update_deck(dic: Dictionary):
 
 
 func to_card_data(s):
-	var args = s.split("_")
+	var args = s.stringValue.split("_")
 
-	print("args[0]: ", args[0])
-	print("int(args[1]): ", int(args[1]))
-	print("int(args[2]): ", int(args[2]))
+	# print("args[0]: ", args[0])
+	# print("int(args[1]): ", int(args[1]))
+	# print("int(args[2]): ", int(args[2]))
 
 	var c = card_ref.new(args[0], int(args[1]), int(args[2]))
 	return c
