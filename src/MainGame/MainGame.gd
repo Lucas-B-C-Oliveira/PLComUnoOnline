@@ -32,6 +32,7 @@ func _ready() -> void:
 		room_info.players = room_data.players
 
 		var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.gen_deck())
+		var dic_stack: Dictionary = {} # card_manager.array_to_dic(card_manager.gen_deck()) ## TODO: Remove this comments!
 		
 		room_info.game = {
 		"mapValue": 
@@ -42,7 +43,7 @@ func _ready() -> void:
 					"ncards": {"integerValue": 0},
 					"state": {"stringValue": "init"},
 					"deck": {"mapValue": {"fields": dic_deck}},
-					"stack": {"stringValue": ""},
+					"stack": {"mapValue": {"fields": dic_stack}},
 					"top_card": {"stringValue": ""}
 				}
 			}
@@ -78,8 +79,14 @@ func on_snapshot_data(data) -> void:
 				room_data.game.mapValue.fields.state.stringValue = "normal"
 				var first_card = card_manager.get_random_card(true)
 				room_data.game.mapValue.fields.top_card.stringValue = first_card.to_string()
+
+				card_manager.stack.append(first_card)
+				var dic_stack: Dictionary = card_manager.array_to_dic(card_manager.stack) 
+				room_data.game.mapValue.fields.stack.mapValue.fields = dic_stack ## UPDATE STACK
+
 				var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck) 
 				room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck ## UPDATE DECK
+
 				Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
 
 			else:
@@ -94,6 +101,7 @@ func on_snapshot_data(data) -> void:
 		if room_data.game.mapValue.fields.state.stringValue == "normal":
 
 			card_manager.update_deck(room_data.game.mapValue.fields.deck.mapValue.fields) ## UPDATE DECK
+			card_manager.update_stack(room_data.game.mapValue.fields.stack.mapValue.fields) ## UPDATE STACK
 
 			if $Stack.card_data != null:
 
@@ -181,8 +189,13 @@ func go_to_next() -> void:
 	calc_next()
 	
 	room_data.game.mapValue.fields.ncards[str(my_number_in_room)].integerValue = hand.cards_data.size()
-	var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck)
+
+	var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck) ## UPDATE DECK
 	room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck ## UPDATE DECK
+	
+	var dic_stack: Dictionary = card_manager.array_to_dic(card_manager.stack) ## UPDATE STACK
+	room_data.game.mapValue.fields.stack.mapValue.fields = dic_stack ## UPDATE STACK
+
 	room_data.game.mapValue.fields.top_card.stringValue = $Stack.card_data.to_string() ## Set Card of TOP!
 	Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
 

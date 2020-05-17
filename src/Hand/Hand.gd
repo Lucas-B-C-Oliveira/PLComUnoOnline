@@ -19,7 +19,7 @@ func reload() -> void:
 		add_child(card)
 
 
-func play_card(card):
+func play_card(card) -> void:
 	cards_data.remove(cards_data.find(card.card_data))
 	remove_child(card)
 
@@ -27,12 +27,14 @@ func play_card(card):
 		card.card_data.used = -1
 		get_parent().calc_next()
 	
+	get_parent().card_manager.stack.append(card.card_data)
+	
 	get_parent().go_to_next()
 
 
-func can_drop_data(position, data):
+func can_drop_data(_position, _data) -> void:
 	buy_card()
 
 
-func buy_card():
+func buy_card() -> void:
 	get_parent().buy_card()

@@ -5,6 +5,8 @@ var card_ref = load("res://src/Card/CardData.gd")
 
 var deck = []
 
+var stack = []
+
 
 
 func buy_cards(hand, n = 1) -> void:
@@ -14,6 +16,9 @@ func buy_cards(hand, n = 1) -> void:
 
 
 func get_random_card(first: bool = false):
+
+	if deck.size() == 0:
+		shuffle()
 
 	randomize()
 	var r = int(rand_range(0, deck.size()))
@@ -66,11 +71,21 @@ func array_to_dic(arr: Array):
 	return dic
 
 
+func update_stack(dic: Dictionary) -> void:
+	stack.clear()
+
+	for k in dic:
+		stack.append(to_card_data(dic[k]))
+
+
 func update_deck(dic: Dictionary):
 
 	deck.clear()
 	for k in dic:
 		deck.append(to_card_data(dic[k]))
+	
+	if deck.size() == 0:
+		shuffle()
 
 
 func to_card_data(s):
@@ -82,4 +97,17 @@ func to_card_data(s):
 	 
 	var c = card_ref.new(args[0], int(args[1]), int(args[2]))
 	return c
-	# var c = card_ref.new(args[0], int(args[1].split("_")[0]), int(args[2].split("_")[1]))
+
+
+func suffle() -> void:
+	while stack.size() != 0:
+		
+		var i = int(rand_range(0, stack.size()))
+		var card = stack[i]
+		stack.remove(i)
+		card.used = 0
+
+		if card.type == "plus4" or card.type == "jokey":
+			card.color = -1
+	
+		deck.append(card)
