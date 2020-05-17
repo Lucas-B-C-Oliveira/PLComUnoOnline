@@ -17,50 +17,81 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Red" type="ColorRect" parent="."]
+[node name="Red" type="TextureButton" parent="."]
 visible = false
 margin_left = 116.486
 margin_top = 0.728302
 margin_right = 236.486
 margin_bottom = 42.9783
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Red"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+mouse_filter = 2
 color = Color( 1, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Yellow" type="ColorRect" parent="."]
+[node name="Yellow" type="TextureButton" parent="."]
 visible = false
 margin_left = 116.109
 margin_top = 43.7332
 margin_right = 236.109
 margin_bottom = 85.9832
+
+[node name="ColorRect2" type="ColorRect" parent="Yellow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 1, 0.831373, 0.164706, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Green" type="ColorRect" parent="."]
+[node name="Green" type="TextureButton" parent="."]
 visible = false
 margin_left = 116.109
 margin_top = 85.983
 margin_right = 236.109
 margin_bottom = 128.233
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="Green"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0.0196078, 0.321569, 0.0196078, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Blue" type="ColorRect" parent="."]
+[node name="Blue" type="TextureButton" parent="."]
 visible = false
 margin_left = 116.109
 margin_top = 128.233
 margin_right = 236.109
 margin_bottom = 170.483
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="Blue"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0.0117647, 0.321569, 0.552941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="Red" to="." method="_on_Red_gui_input"]
-[connection signal="gui_input" from="Yellow" to="." method="_on_Yellow_gui_input"]
-[connection signal="gui_input" from="Green" to="." method="_on_Green_gui_input"]
-[connection signal="gui_input" from="Blue" to="." method="_on_Blue_gui_input"]
+[connection signal="pressed" from="Red" to="." method="_on_Red_pressed"]
+[connection signal="pressed" from="Yellow" to="." method="_on_Yellow_pressed"]
+[connection signal="pressed" from="Green" to="." method="_on_Green_pressed"]
+[connection signal="pressed" from="Blue" to="." method="_on_Blue_pressed"]

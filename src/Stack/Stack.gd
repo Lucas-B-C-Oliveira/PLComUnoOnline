@@ -46,22 +46,6 @@ func drop_data(position: Vector2, card) -> void:
 		get_node("../Hand").play_card(card)
 
 
-func _on_Red_gui_input(event: InputEvent) -> void:
-	color_selected(1)
-
-
-func _on_Yellow_gui_input(event: InputEvent) -> void:
-	color_selected(2)
-
-
-func _on_Green_gui_input(event: InputEvent) -> void:
-	color_selected(3)
-
-
-func _on_Blue_gui_input(event: InputEvent) -> void:
-	color_selected(4)
-
-
 func color_selected(color):
 	card_color.card_data.color = color
 	card_data = card_color.card_data
@@ -74,3 +58,20 @@ func color_selected(color):
 
 	get_node("../Hand").play_card(card_color)
 	
+
+
+func _on_Red_pressed() -> void:
+	color_selected(1)
+	print("_________________REDDD__________________")
+
+
+func _on_Yellow_pressed() -> void:
+	color_selected(2)
+
+
+func _on_Green_pressed() -> void:
+	color_selected(3)
+
+
+func _on_Blue_pressed() -> void:
+	color_selected(4)
