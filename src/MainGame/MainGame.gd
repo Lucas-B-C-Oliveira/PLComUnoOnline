@@ -62,6 +62,8 @@ func on_snapshot_data(data) -> void:
 		var card_top_now = card_manager.to_card_data(room_data.game.mapValue.fields.top_card.stringValue)
 		$Stack.set_top(card_top_now)
 
+		show_ncards()
+
 		## Se é minha vez e se não é minha vez!!!
 
 
@@ -178,7 +180,7 @@ func calc_num_player(p) -> int:
 func go_to_next() -> void:
 	calc_next()
 	
-	room_data.game.mapValue.fields.ncards.integerValue = hand.cards_data.size()
+	room_data.game.mapValue.fields.ncards[str(my_number_in_room)].integerValue = hand.cards_data.size()
 	var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck)
 	room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck ## UPDATE DECK
 	room_data.game.mapValue.fields.top_card.stringValue = $Stack.card_data.to_string() ## Set Card of TOP!
@@ -197,3 +199,17 @@ func buy_card():
 	
 	hand.reload()
 	go_to_next()
+
+
+func show_ncards():
+	for i in range(4):
+
+		if room_data.game.mapValue.fields.ncards.has(str(i)):
+
+			if calc_num_player(i) != 0:
+				get_node("Player" + str(calc_num_player(i)) + "/Number").text = str(room_data.game.mapValue.fields.ncards[str(i)].integerValue)
+			
+			if room_data.game.mapValue.fields.ncards[str(i)].integerValue == 1:
+				get_node("Player" + str(calc_num_player(i)) + "/Uno").show()
+			else:
+				get_node("Player" + str(calc_num_player(i)) + "/Uno").hide()
