@@ -185,6 +185,15 @@ func go_to_next() -> void:
 	Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
 
 
+func buy_card():
 
-func _on_Red_gui_input(event: InputEvent) -> void:
-	pass # Replace with function body.
+	if not is_my_turn(): return
+
+	if $Stack.card_data.type == "plus2" and $Stack.card_data.used != -1:
+		card_manager.buy_cards(hand.cards_data, $Stack.card_data.used + 2) ## COMPRA + 2
+		$Stack.card_data.used = -1
+	else:
+		card_manager.buy_cards(hand.cards_data)
+	
+	hand.reload()
+	go_to_next()

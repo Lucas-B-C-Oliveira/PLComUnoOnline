@@ -13,7 +13,9 @@ func set_top(card_data) -> void:
 	texture = load("res://assets/cards/" + card_data.to_text() + ".png")
 
 
-func can_drop_data(position: Vector2, data) -> bool:
+func can_drop_data(position: Vector2, data):
+
+	if data.get_name() == "deck": return
 
 	if not get_parent().is_my_turn(): return false
 	data = data.card_data

@@ -80,7 +80,6 @@ func on_snapshot_data(data) -> void:
 		
 				play_button.disabled = (number_of_players <= 1)
 
-		print("room_data: ", room_data)
 	elif state == START:
 		GameState.room_data = room_data
 		get_tree().change_scene("res://src/MainGame/MainGame.tscn")

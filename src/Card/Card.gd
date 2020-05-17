@@ -17,3 +17,11 @@ func get_drag_data(position: Vector2):
 	card.get_node("Texture").set_position(Vector2(-111/2, -169/2))
 	set_drag_preview(card)
 	return self
+
+
+func can_drop_data(position, data):
+	return data.get_name() == "deck"
+
+
+func drop_data(position, data):
+	get_parent().buy_card()

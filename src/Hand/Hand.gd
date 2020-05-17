@@ -28,3 +28,11 @@ func play_card(card):
 		get_parent().calc_next()
 	
 	get_parent().go_to_next()
+
+
+func can_drop_data(position, data):
+	buy_card()
+
+
+func buy_card():
+	get_parent().buy_card()
