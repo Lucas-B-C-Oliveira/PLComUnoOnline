@@ -133,7 +133,7 @@ func on_snapshot_data(data) -> void:
 
 				else:
 					$Info.text = "Sua vez!"
-				
+				$TurnAudio.play()
 				highlight()
 	else:
 		highlight()
