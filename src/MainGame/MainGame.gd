@@ -107,7 +107,11 @@ func on_snapshot_data(data) -> void:
 
 				else:
 					$Info.text = "Sua vez!"
-
+				
+				highlight()
+	else:
+		highlight()
+		$Info.text = "Aguarde sua vez!"
 
 
 func is_my_turn() -> bool:
@@ -136,6 +140,14 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
 
 
 func calc_next():
+
+	if $Stack.card_data != null and $Stack.card_data.type == "reverse" and $Stack.card_data.used != -1: ## REVERSE | INVERTE | EMENDA PARLAMENTAR!
+		var new_turn = int(room_data.game.mapValue.fields.way.integerValue) 
+		new_turn *= -1
+		room_data.game.mapValue.fields.way.integerValue = new_turn
+		$Stack.card_data.used = -1
+
+
 	var way = int(room_data.game.mapValue.fields.way.integerValue)
 	var next = int(room_data.game.mapValue.fields.turn.integerValue)
 
@@ -147,3 +159,32 @@ func calc_next():
 		
 		if room_data.players.mapValue.fields.has(str(next)):
 			room_data.game.mapValue.fields.turn.integerValue = next
+
+
+func highlight() -> void:
+	
+	for i in range(4):
+		if i == int(room_data.game.mapValue.fields.turn.integerValue):
+			get_node("Player" + str(calc_num_player(i))).self_modulate = Color(1, 0, 0)
+		else:
+			get_node("Player" + str(calc_num_player(i))).self_modulate = Color(1, 1, 1)
+
+
+func calc_num_player(p) -> int:
+	var r = p - my_number_in_room if p - my_number_in_room >= 0 else 4 + p - my_number_in_room
+	return r
+
+
+func go_to_next() -> void:
+	calc_next()
+	
+	room_data.game.mapValue.fields.ncards.integerValue = hand.cards_data.size()
+	var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck)
+	room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck ## UPDATE DECK
+	room_data.game.mapValue.fields.top_card.stringValue = $Stack.card_data.to_string() ## Set Card of TOP!
+	Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
+
+
+
+func _on_Red_gui_input(event: InputEvent) -> void:
+	pass # Replace with function body.

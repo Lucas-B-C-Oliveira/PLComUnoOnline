@@ -64,6 +64,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Red" type="ColorRect" parent="Stack"]
+visible = false
+margin_left = 116.486
+margin_top = 0.728302
+margin_right = 236.486
+margin_bottom = 42.9783
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yellow" type="ColorRect" parent="Stack"]
+visible = false
+margin_left = 116.109
+margin_top = 43.7332
+margin_right = 236.109
+margin_bottom = 85.9832
+color = Color( 1, 0.831373, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Green" type="ColorRect" parent="Stack"]
+visible = false
+margin_left = 116.109
+margin_top = 85.983
+margin_right = 236.109
+margin_bottom = 128.233
+color = Color( 0.0196078, 0.321569, 0.0196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blue" type="ColorRect" parent="Stack"]
+visible = false
+margin_left = 116.109
+margin_top = 128.233
+margin_right = 236.109
+margin_bottom = 170.483
+color = Color( 0.0117647, 0.321569, 0.552941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Info" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -216,4 +260,8 @@ __meta__ = {
 }
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+[connection signal="gui_input" from="Stack/Red" to="Stack" method="_on_Red_gui_input"]
+[connection signal="gui_input" from="Stack/Yellow" to="Stack" method="_on_Yellow_gui_input"]
+[connection signal="gui_input" from="Stack/Green" to="Stack" method="_on_Green_gui_input"]
+[connection signal="gui_input" from="Stack/Blue" to="Stack" method="_on_Blue_gui_input"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

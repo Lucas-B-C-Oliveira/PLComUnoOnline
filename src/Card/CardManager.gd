@@ -75,15 +75,11 @@ func update_deck(dic: Dictionary):
 
 func to_card_data(s):
 	var args
+	
 	if typeof(s) == TYPE_DICTIONARY:
 		 args = s.stringValue.split("_")
 	elif typeof(s) == TYPE_STRING: args = s.split("_")
 	 
-
-	# print("args[0]: ", args[0])
-	# print("int(args[1]): ", int(args[1]))
-	# print("int(args[2]): ", int(args[2]))
-
 	var c = card_ref.new(args[0], int(args[1]), int(args[2]))
 	return c
 	# var c = card_ref.new(args[0], int(args[1].split("_")[0]), int(args[2].split("_")[1]))
