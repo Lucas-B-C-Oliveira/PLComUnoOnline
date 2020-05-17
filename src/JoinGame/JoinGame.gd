@@ -94,28 +94,17 @@ func on_snapshot_data(data) -> void:
 				get_node("Container/Player" + str(i)).text = "-"
 		
 		if room_data.state.stringValue == "start":
+			
 			GameState.room_data = room_data
-			## Mudar para a Cena do Jogo!
+			get_tree().change_scene("res://src/MainGame/MainGame.tscn")
+			
 		elif room_data.state.stringValue == "cancel":
+			
 			FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 			emit_signal("signal_cancel_button_pressed_in_JoinGame")
 
 
 func _on_HTTPRequest_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
-
-	# if state == CREATE:
-
-	#     var response_body := JSON.parse(body.get_string_from_ascii())
-
-	#     if response_code == 409:
-	#         Firebase.update_document("rooms/%s" % GameState.room_name, room_info, http)
-	#     elif response_code == 200:
-	#         info.text = "Seus amigos devem dar Join em:"
-	#         host_name_label.text = GameState.room_name
-	#         FirestoreListener.set_listener("rooms", GameState.room_name, self, "on_snapshot_data")
-	#         state = WAIT
-	#     else:
-	#         notification.text = response_body.result.error.message.capitalize()
 	
 	var response_body := JSON.parse(body.get_string_from_ascii())
 

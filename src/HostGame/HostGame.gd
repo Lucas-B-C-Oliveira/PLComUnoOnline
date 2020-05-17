@@ -81,11 +81,14 @@ func on_snapshot_data(data) -> void:
 				play_button.disabled = (number_of_players <= 1)
 
 		print("room_data: ", room_data)
+	elif state == START:
+		GameState.room_data = room_data
+		get_tree().change_scene("res://src/MainGame/MainGame.tscn")
 
 
 func _on_Play_pressed() -> void:
 
-	emit_signal("signal_play_button_pressed_in_HostGame")
+	# emit_signal("signal_play_button_pressed_in_HostGame")
 
 	room_data.state.stringValue = "start"
 
