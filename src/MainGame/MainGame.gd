@@ -21,10 +21,8 @@ func _ready() -> void:
 	room_data = GameState.room_data
 	my_number_in_room = GameState.my_number_in_room
 
-	FirestoreListener.set_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 
 	card_manager = load("res://src/Card/CardManager.gd").new()
-	# print(card_manager.gen_deck().size()) ## TODO: This line is for verify quantity of cards in deck -> For DEBUG!
 	
 	show_profiles()
 
@@ -44,21 +42,15 @@ func _ready() -> void:
 					"ncards": {"integerValue": 0},
 					"state": {"stringValue": "init"},
 					"deck": {"mapValue": {"fields": dic_deck}},
-					"stack": {"stringValue": ""}
+					"stack": {"stringValue": ""},
+					"top_card": {"stringValue": ""}
 				}
 			}
 		}
-
-		## TODO: Claro, arrancar este código! Esse é o jeito que o cara do curso fez! -> Obviamente, não funcionou!
-		# room_data["game"] = {}
-		# room_data["game"]["way"] = 1
-		# room_data["game"]["turn"] = 0
-		# room_data["game"]["ncards"] = {}
-		# room_data["game"]["state"] = "init"
-		# room_data["game"]["deck"] = card_manager.array_to_dic(card_manager.gen_deck())
-		# room_data["game"]["stack"] = {}
-
 		Firebase.update_document("rooms/%s" % GameState.room_name, room_info, http)
+
+	FirestoreListener.set_listener("rooms", GameState.room_name, self, "on_snapshot_data")
+	
 
 
 func on_snapshot_data(data) -> void:
@@ -66,22 +58,55 @@ func on_snapshot_data(data) -> void:
 
 	if !room_data.has("game"): return
 
+	if room_data.game.mapValue.fields.state.stringValue == "normal":
+		var card_top_now = card_manager.to_card_data(room_data.game.mapValue.fields.top_card.stringValue)
+		$Stack.set_top(card_top_now)
+
+		## Se é minha vez e se não é minha vez!!!
+
+
 	if is_my_turn():
 
 		if room_data.game.mapValue.fields.state.stringValue == "init":
+
 			card_manager.update_deck(room_data.game.mapValue.fields.deck.mapValue.fields)
+
 			if hand.cards_data.size() != 0:
-				## TODO: Já comprei as 7 cartas!
-				print("card_manager.deck.size(): ", card_manager.deck.size())
-				pass
-			else:
-				card_manager.buy_cards(hand.cards_data, 7)
-				hand.reload()
-				var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.gen_deck())
-				room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck
-				calc_next()
+
+				room_data.game.mapValue.fields.state.stringValue = "normal"
+				var first_card = card_manager.get_random_card(true)
+				room_data.game.mapValue.fields.top_card.stringValue = first_card.to_string()
+				var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck) 
+				room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck ## UPDATE DECK
 				Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
 
+			else:
+
+				card_manager.buy_cards(hand.cards_data, 7)
+				hand.reload()
+				calc_next()
+				var dic_deck: Dictionary = card_manager.array_to_dic(card_manager.deck)
+				room_data.game.mapValue.fields.deck.mapValue.fields = dic_deck ## UPDATE DECK
+				Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
+		
+		if room_data.game.mapValue.fields.state.stringValue == "normal":
+
+			card_manager.update_deck(room_data.game.mapValue.fields.deck.mapValue.fields) ## UPDATE DECK
+
+			if $Stack.card_data != null:
+
+				if $Stack.card_data.type == "plus4" and $Stack.card_data.used != -1:
+
+					$Info.text = "Comprou 4!"
+					card_manager.buy_cards(hand.cards_data, 4)
+					hand.reload()
+					$Stack.card_data.used = -1
+
+				elif $Stack.card_data.type == "plus2" and $Stack.card_data.used != -1:
+					$Info.text = "Compre " + str($Stack.card_data.used + 2) + "!"
+
+				else:
+					$Info.text = "Sua vez!"
 
 
 
