@@ -34,11 +34,7 @@ visible = false
 [node name="Login" parent="Main" instance=ExtResource( 2 )]
 visible = false
 
-[node name="LineEdit" parent="Main/Login/Container/VBoxContainer2/Username" index="1"]
-text = "lucascoliveira819@gmail.com"
-
 [node name="LineEdit" parent="Main/Login/Container/VBoxContainer2/Password" index="1"]
-text = "lucas123"
 secret = false
 
 [node name="UserProfile" parent="Main" instance=ExtResource( 3 )]

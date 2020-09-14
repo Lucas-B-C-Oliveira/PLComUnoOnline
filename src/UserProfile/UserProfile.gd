@@ -4,8 +4,8 @@ extends Control
 signal signal_confirm_button_pressed_in_UserProfile
 
 onready var http : HTTPRequest = $HTTPRequest
-onready var nickname : Label = $Container/VBoxContainer2/Name/LineEdit
-onready var character_class : Label = $Container/VBoxContainer2/Class/LineEdit
+onready var nickname : LineEdit = $Container/VBoxContainer2/Name/LineEdit
+onready var character_class : LineEdit = $Container/VBoxContainer2/Class/LineEdit
 onready var notification : Label = $Container/Notification
 onready var strength : Slider = $Container/VBoxContainer2/Strength/Slider
 onready var intelligence : Slider = $Container/VBoxContainer2/Intelligence/Slider
@@ -80,7 +80,7 @@ func set_profile(value: Dictionary) -> void:
 
 func connect_signals_with(gm_ref, func_name: String = "") -> void:
 
-	if gm_ref.has_method(func_name) and !gm_ref.is_connected("signal_confirm_button_pressed_in_UserProfile", gm_ref, func_name):
+	if gm_ref.has_method(func_name) and !self.is_connected("signal_confirm_button_pressed_in_UserProfile", gm_ref, func_name):
 		
 		connect("signal_confirm_button_pressed_in_UserProfile", gm_ref, func_name)
 

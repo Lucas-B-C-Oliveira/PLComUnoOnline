@@ -80,7 +80,7 @@ func on_snapshot_data(data) -> void:
 		
 				play_button.disabled = (number_of_players <= 1)
 
-	elif state == START:
+	elif room_data.state.stringValue == "start" == START:
 		GameState.room_data = room_data
 		get_tree().change_scene("res://src/MainGame/MainGame.tscn")
 
@@ -92,6 +92,8 @@ func _on_Play_pressed() -> void:
 	room_data.state.stringValue = "start"
 
 	Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
+
+	print("room_data.state: ", room_data.state.stringValue)
 
 	state = START
 	

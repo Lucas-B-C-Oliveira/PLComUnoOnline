@@ -31,11 +31,11 @@ func _on_RegisterButton_pressed() -> void:
         notification.text = "Invalid password or username"
         return
     
-    Firebase.register(username.text, password.text, http)
+    Firebase.register(username.text + "@godot.com", password.text, http)
 
 
 func connect_signals_with(gm_ref, func_name: String = "") -> void:
 
-    if gm_ref.has_method(func_name) and !gm_ref.is_connected("signal_register_button_pressed_in_Register", gm_ref, func_name):
+    if gm_ref.has_method(func_name) and !self.is_connected("signal_register_button_pressed_in_Register", gm_ref, func_name):
         
         connect("signal_register_button_pressed_in_Register", gm_ref, func_name)

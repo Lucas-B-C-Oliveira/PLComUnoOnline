@@ -16,6 +16,7 @@ var room_info := {
 onready var host_name: LineEdit = $Container/VBoxContainer3/Username/LineEdit
 onready var join_button: Button = $Container/VBoxContainer3/Username/Join
 onready var http: HTTPRequest = $HTTPRequest
+onready var number_of_players_label  = $Container/NumberOfPlayers
 
 
 
@@ -37,6 +38,9 @@ func play_join_game() -> void:
 
 func on_snapshot_data(data) -> void:
 	room_data = data
+
+	# print("State: ", state)
+	# print("room_data.state.stringValue: ", room_data.state.stringValue)
 
 	if state == CONNECT:
 		
@@ -87,6 +91,10 @@ func on_snapshot_data(data) -> void:
 
 		# print("State: ", state)
 		# print("room_data.state.stringValue: ", room_data.state.stringValue)
+
+		var number_of_players: int = room_data.players.mapValue.fields.size()
+
+		number_of_players_label.text = "Players ( " + str(number_of_players) + "/4 ):"
 
 		for i in range(4):
 

@@ -4,7 +4,7 @@ class_name ListenerTimer
 
 signal return_of_request(data)
 
-var data
+var data: Dictionary
 var timer_on: bool = true
 
 onready var http : HTTPRequest = $HTTPRequest
@@ -40,13 +40,19 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
 	
 	if response_code != 200:
 		# print("result_body.result.error.message.capitalize(): ", result_body.result.error.message.capitalize())
-		data = null
-	else: 
+		data = {}
+	else:
+		# print("result_body.fields: ", result_body.fields)
+		# print("data: ", data)
 
-		if data == result_body.fields: return ## TODO: Verify this, but never enter here
-		
-		data = result_body.fields
-
-	emit_signal("return_of_request", data)
+		if data.hash() == result_body.fields.hash(): 
+			# print("______________________ NAO MANDEI O DATA ______________________")#return ## TODO: Verify this, but never enter here
+			# print(" ")
+			pass
+		else:
+			data = result_body.fields.duplicate(true)
+			emit_signal("return_of_request", data)
+			# print("________333___________ MANDEI O DATA!!! ________333___________")
+			# print(" ")
 	
 

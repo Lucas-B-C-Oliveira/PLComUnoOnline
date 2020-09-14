@@ -14,7 +14,7 @@ func buy_cards(hand, n = 1) -> void:
 	for _i in range(n):
 		hand.append(get_random_card())
 	
-	print("Func -> buy_cards -> CardManager")
+	# print("Func -> buy_cards -> CardManager")
 	print("Comprei ", n, " cartas!")
 
 

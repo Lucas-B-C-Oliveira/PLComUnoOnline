@@ -33,16 +33,16 @@ __meta__ = {
 }
 
 [node name="RegisterButton" type="Button" parent="HBoxContainer"]
-margin_left = 328.0
-margin_right = 673.0
+margin_left = 475.0
+margin_right = 642.0
 margin_bottom = 85.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 1 )
 text = "REGISTER"
 
 [node name="LoginButton" type="Button" parent="HBoxContainer"]
-margin_left = 723.0
-margin_right = 951.0
+margin_left = 692.0
+margin_right = 804.0
 margin_bottom = 85.0
 size_flags_horizontal = 8
 custom_fonts/font = ExtResource( 1 )

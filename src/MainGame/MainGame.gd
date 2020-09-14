@@ -63,17 +63,17 @@ func _ready() -> void:
 		Firebase.update_document("rooms/%s" % GameState.room_name, room_info, http)
 
 	FirestoreListener.set_listener("rooms", GameState.room_name, self, "on_snapshot_data")
-	
 
 
 func on_snapshot_data(data) -> void:
 
 	if room_data == data: return
-
 	room_data = data
-
-
+	
 	if !room_data.has("game"): return
+		
+	# print("room_data: ", room_data)
+	print("room_data.game.state: ", room_data.game.mapValue.fields.state.stringValue)
 
 	if room_data.game.mapValue.fields.state.stringValue == "normal":
 		var card_top_now = card_manager.to_card_data(room_data.game.mapValue.fields.top_card.stringValue)
@@ -93,17 +93,15 @@ func on_snapshot_data(data) -> void:
 		FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 		
 		var info = load("res://src/InfoScreen/InfoScreen.tscn").instance()
-		info.init("Atenção!", "Host Encerrou a Sessão", 3, "res://src/HostAndJoin/HostAndJoin.tscn")
 		add_child(info)
+		info.init("Atenção!", "Host Encerrou a Sessão", 3, "res://src/HostAndJoin/HostAndJoin.tscn")
 		return
 
 	if is_my_turn():
 
 		if room_data.game.mapValue.fields.state.stringValue == "init":
-
 			card_manager.update_deck(room_data.game.mapValue.fields.deck.mapValue.fields)
-
-			print("hand.cards_data.size(): ", hand.cards_data.size())
+			# print("hand.cards_data.size(): ", hand.cards_data.size())
 
 			if hand.cards_data.size() != 0:
 
@@ -141,11 +139,15 @@ func on_snapshot_data(data) -> void:
 
 					$Info.text = "Comprou 4!"
 					card_manager.buy_cards(hand.cards_data, 4)
-					hand.reload()
+
+					# card_manager.buy_cards(hand.cards_data, $Stack.card_data.used + 2) ## COMPRA + 2
 					$Stack.card_data.used = -1
+					hand.reload()
+					go_to_next() 
 
 				elif $Stack.card_data.type == "plus2" and $Stack.card_data.used != -1:
 					$Info.text = "Compre " + str($Stack.card_data.used + 2) + "!"
+					# $Stack.card_data.used = -1 ## Isso não estava aqui
 
 				else:
 					$Info.text = "Sua vez!"
@@ -246,7 +248,7 @@ func go_to_next():
 	room_data.game.mapValue.fields.top_card.stringValue = $Stack.card_data.to_string() ## Set Card of TOP!
 	
 	var dic_stack: Dictionary = card_manager.array_to_dic(card_manager.stack) ## UPDATE STACK
-	room_data.game.mapValue.fields.stack.mapValue.fields = dic_stack ## UPDATE STACK
+	room_data.game.mapValue.fields.stack.mapValue.fields = dic_stack ## UPDATE STACK 
 
 	# print("DPS _________________")
 
@@ -259,6 +261,8 @@ func buy_card():
 
 	if $Stack.card_data.type == "plus2" and $Stack.card_data.used != -1:
 		card_manager.buy_cards(hand.cards_data, $Stack.card_data.used + 2) ## COMPRA + 2
+		print("$Stack.card_data.used: ", $Stack.card_data.used)
+		print("$Stack.card_data.used + 2: ", $Stack.card_data.used + 2)
 		$Stack.card_data.used = -1
 	else:
 		card_manager.buy_cards(hand.cards_data)
@@ -284,7 +288,8 @@ func show_ncards():
 func _on_Exit_pressed() -> void:
 	room_data.game.mapValue.fields.state.stringValue = "cancel"
 	room_data.state.stringValue = "close"
-	FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 	Firebase.update_document("rooms/%s" % GameState.room_name, room_data, http)
+	yield(http, "request_completed")
+	FirestoreListener.delete_listener("rooms", GameState.room_name, self, "on_snapshot_data")
 	get_tree().change_scene("res://src/HostAndJoin/HostAndJoin.tscn")
 

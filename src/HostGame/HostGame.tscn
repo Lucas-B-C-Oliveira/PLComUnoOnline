@@ -6,11 +6,11 @@
 [ext_resource path="res://src/HostGame/HostGame.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
-size = 50
+size = 30
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 45
+size = 20
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -33,106 +33,111 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Title" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -293.0
+margin_right = 293.0
+margin_bottom = 123.0
+text = "Host Game"
+
 [node name="Container" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 25.0
-margin_top = 25.0
-margin_right = -25.0
-margin_bottom = -25.0
-custom_constants/separation = 40
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -210.783
+margin_top = -223.459
+margin_right = 176.217
+margin_bottom = 578.541
+custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" parent="Container" instance=ExtResource( 2 )]
-margin_right = 1230.0
-text = "Host Game"
-
 [node name="Info" parent="Container" instance=ExtResource( 2 )]
-margin_top = 197.0
-margin_right = 1230.0
-margin_bottom = 259.0
+margin_right = 387.0
+margin_bottom = 79.0
 custom_fonts/font = SubResource( 1 )
 text = "Seus Amigos Devem dar Join em:"
 autowrap = true
 
 [node name="HostName" parent="Container" instance=ExtResource( 2 )]
-margin_top = 299.0
-margin_right = 1230.0
-margin_bottom = 361.0
+margin_top = 84.0
+margin_right = 387.0
+margin_bottom = 122.0
 custom_fonts/font = SubResource( 1 )
 text = "Host Name"
 autowrap = true
 
 [node name="NumberOfPlayers" parent="Container" instance=ExtResource( 2 )]
-margin_top = 401.0
-margin_right = 1230.0
-margin_bottom = 463.0
+margin_top = 127.0
+margin_right = 387.0
+margin_bottom = 165.0
 custom_fonts/font = SubResource( 1 )
 text = "Players (0/4)"
 autowrap = true
 
 [node name="Player0" parent="Container" instance=ExtResource( 2 )]
-margin_top = 503.0
-margin_right = 1230.0
-margin_bottom = 559.0
+margin_top = 170.0
+margin_right = 387.0
+margin_bottom = 196.0
 custom_fonts/font = SubResource( 2 )
 text = "-"
 autowrap = true
 
 [node name="Player1" parent="Container" instance=ExtResource( 2 )]
-margin_top = 599.0
-margin_right = 1230.0
-margin_bottom = 655.0
+margin_top = 201.0
+margin_right = 387.0
+margin_bottom = 227.0
 custom_fonts/font = SubResource( 2 )
 text = "-"
 autowrap = true
 
 [node name="Player2" parent="Container" instance=ExtResource( 2 )]
-margin_top = 695.0
-margin_right = 1230.0
-margin_bottom = 751.0
+margin_top = 232.0
+margin_right = 387.0
+margin_bottom = 258.0
 custom_fonts/font = SubResource( 2 )
 text = "-"
 autowrap = true
 
 [node name="Player3" parent="Container" instance=ExtResource( 2 )]
-margin_top = 791.0
-margin_right = 1230.0
-margin_bottom = 847.0
+margin_top = 263.0
+margin_right = 387.0
+margin_bottom = 289.0
 custom_fonts/font = SubResource( 2 )
 text = "-"
 autowrap = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Container"]
-margin_top = 887.0
-margin_right = 1230.0
-margin_bottom = 1072.0
+margin_top = 294.0
+margin_right = 387.0
+margin_bottom = 397.0
 custom_constants/separation = 15
 
 [node name="Play" type="Button" parent="Container/VBoxContainer2"]
-margin_left = 478.0
-margin_right = 752.0
-margin_bottom = 85.0
+margin_left = 126.0
+margin_right = 260.0
+margin_bottom = 44.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 3 )
 disabled = true
 text = "INICIAR"
 
 [node name="Cancel" type="Button" parent="Container/VBoxContainer2"]
-margin_left = 421.0
-margin_top = 100.0
-margin_right = 808.0
-margin_bottom = 185.0
+margin_left = 99.0
+margin_top = 59.0
+margin_right = 287.0
+margin_bottom = 103.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 3 )
 text = "CANCELAR"
 
 [node name="Notification" type="Label" parent="Container"]
-margin_top = 1112.0
-margin_right = 1230.0
-margin_bottom = 1150.0
+margin_top = 402.0
+margin_right = 387.0
+margin_bottom = 440.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 3 )
 align = 1
